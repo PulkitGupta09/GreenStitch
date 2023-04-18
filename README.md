@@ -32,7 +32,7 @@ Once the project is installed and set up, you can access the Greenstitch dashboa
 
 This project utilizes a REST API to communicate with a database. The API reference for this project can be found at http://localhost:3000/api/createData. This API allows users to add data to the database through a POST request.
 Database Structure:
-```json
+```bash
 {
   _id: new ObjectId("643e7cb6291fc46ce799af22"),
   name: 'Ram Shyam Company',
