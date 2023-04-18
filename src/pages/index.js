@@ -194,10 +194,47 @@ export default function Home({ CompanyData }) {
                       Dashboard
                     </h3>
                   </div>
-                  <img
-                    src="/dashboard_down_icon.svg"
-                    alt="dashboard down icon"
-                  />
+                  <img src="/dashboard_up_icon.svg" alt="dashboard down icon" />
+                </div>
+
+                {/* Dashboard Dropdown menu */}
+                <div
+                  className={styles.dashboardcontainer__dashboard__listitems}
+                >
+                  <ul
+                    className={
+                      styles.dashboardcontainer__dashboard__listitems__ul
+                    }
+                  >
+                    <li
+                      className={
+                        styles.dashboardcontainer__dashboard__listitems__ul__li
+                      }
+                    >
+                      Record
+                    </li>
+                    <li
+                      className={
+                        styles.dashboardcontainer__dashboard__listitems__ul__li
+                      }
+                    >
+                      Reports
+                    </li>
+                    <li
+                      className={
+                        styles.dashboardcontainer__dashboard__listitems__ul__li
+                      }
+                    >
+                      Analyse
+                    </li>
+                    <li
+                      className={
+                        styles.dashboardcontainer__dashboard__listitems__ul__li
+                      }
+                    >
+                      Learn
+                    </li>
+                  </ul>
                 </div>
               </div>
               <h2 className={styles.dashboardcontainer__heading__primary}>
@@ -254,11 +291,22 @@ export default function Home({ CompanyData }) {
                 />
               </div>
               <div className={styles.rightcontainer__nav__icons}>
-                <img
-                  src="/notification_icon.svg"
-                  alt="notification icon"
-                  className={styles.rightcontainer__nav__icons__icon__1}
-                />
+                <div className={styles.rightcontainer__nav__icons__icon__1}>
+                  <img
+                    src="/notification_icon.svg"
+                    alt="notification icon"
+                    className={
+                      styles.rightcontainer__nav__icons__icon__1__notification
+                    }
+                  />
+                  <img
+                    src="/indicator.svg"
+                    alt="indicator icon"
+                    className={
+                      styles.rightcontainer__nav__icons__icon__1__notification__dot
+                    }
+                  />
+                </div>
                 <img
                   src="/calendar_icon.svg"
                   alt="calendar icon"
