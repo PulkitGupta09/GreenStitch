@@ -22,15 +22,18 @@ To install and set up the project locally, follow these steps:
 ## Usage
 
 Once the project is installed and set up, you can access the Greenstitch dashboard by navigating to http://localhost:3000.
-All the below links same website if one is not working you can go to other.
-Vercel Link 1: https://green-stitch-r6ku.vercel.app/
-Vercel Link 2: https://green-stitch-r6ku-git-main-gpulkit09-gmailcom.vercel.app/
-Vercel Link 3: https://green-stitch-r6ku-8u7g5jwf1-gpulkit09-gmailcom.vercel.app/
+
+- [Vercel Link 1](https://green-stitch-r6ku.vercel.app/)
+- [Vercel Link 2](https://green-stitch-r6ku-git-main-gpulkit09-gmailcom.vercel.app/)
+- [Vercel Link 3](https://green-stitch-r6ku-8u7g5jwf1-gpulkit09-gmailcom.vercel.app/)
+
 
 ## API Reference
 
 This project utilizes a REST API to communicate with a database. The API reference for this project can be found at http://localhost:3000/api/createData. This API allows users to add data to the database through a POST request.
-Database Structure: {
+Database Structure:
+```json
+{
   _id: new ObjectId("643e7cb6291fc46ce799af22"),
   name: 'Ram Shyam Company',
   year: {
