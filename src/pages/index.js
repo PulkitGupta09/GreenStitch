@@ -31,6 +31,31 @@ ChartJS.register(
 export default function Home({ CompanyData }) {
   const months = Object.keys(CompanyData);
   const typeEmission = Object.keys(CompanyData[months[0]]);
+  var carbonFootprint = 0,
+    Emissionbyspinning = 0,
+    Emissionbytransportation = 0,
+    Emissionbycarding = 0,
+    Emissionbyheatingandcooling = 0;
+  for (const key in CompanyData) {
+    carbonFootprint =
+      carbonFootprint +
+      Number.parseInt(CompanyData[key]["Emission By Spinning"]) +
+      Number.parseInt(CompanyData[key]["Emission By Transportation"]) +
+      Number.parseInt(CompanyData[key]["Emission By Carding"]) +
+      Number.parseInt(CompanyData[key]["Emission By Heating&Cooling"]);
+    Emissionbyspinning =
+      Emissionbyspinning +
+      Number.parseInt(CompanyData[key]["Emission By Spinning"]);
+    Emissionbytransportation =
+      Emissionbytransportation +
+      Number.parseInt(CompanyData[key]["Emission By Transportation"]);
+    Emissionbycarding =
+      Emissionbycarding +
+      Number.parseInt(CompanyData[key]["Emission By Carding"]);
+    Emissionbyheatingandcooling =
+      Emissionbyheatingandcooling +
+      Number.parseInt(CompanyData[key]["Emission By Heating&Cooling"]);
+  }
   const options = {
     plugins: {
       title: {
@@ -106,11 +131,16 @@ export default function Home({ CompanyData }) {
   };
 
   const data2 = {
-    labels: ["Green", "Sky", "Yellow", "Orange"],
+    labels: ["spinning", "transportation", "carding", "heatingandcooling"],
     datasets: [
       {
         labels,
-        data: [22, 16, 27, 35],
+        data: [
+          ((Emissionbyspinning / carbonFootprint) * 100).toFixed(2),
+          ((Emissionbytransportation / carbonFootprint) * 100).toFixed(2),
+          ((Emissionbycarding / carbonFootprint) * 100).toFixed(2),
+          ((Emissionbyheatingandcooling / carbonFootprint) * 100).toFixed(2),
+        ],
         backgroundColor: ["#57cc78", "#55dbdb", "#e2ff32", "#fec102"],
         borderColor: ["#57cc78", "#55dbdb", "#e2ff32", "#fec102"],
         borderWidth: 1,
@@ -263,7 +293,7 @@ export default function Home({ CompanyData }) {
                       styles.rightcontainer__middlecontainer__1__card__hp2
                     }
                   >
-                    2,412,314t
+                    {carbonFootprint}t
                   </h2>
                   <h2
                     className={
@@ -295,7 +325,7 @@ export default function Home({ CompanyData }) {
                       styles.rightcontainer__middlecontainer__1__card__hp2
                     }
                   >
-                    72,3694t
+                    {Emissionbyspinning}t
                   </h2>
                   <h2
                     className={
@@ -327,7 +357,7 @@ export default function Home({ CompanyData }) {
                       styles.rightcontainer__middlecontainer__1__card__hp2
                     }
                   >
-                    361,874t
+                    {Emissionbytransportation}t
                   </h2>
                   <h2
                     className={
@@ -359,7 +389,7 @@ export default function Home({ CompanyData }) {
                       styles.rightcontainer__middlecontainer__1__card__hp2
                     }
                   >
-                    241,231
+                    {Emissionbycarding}t
                   </h2>
                   <h2
                     className={
@@ -481,7 +511,10 @@ export default function Home({ CompanyData }) {
                           styles.rightcontainer__middlecontainer__2__right__bottom__coldetails__1__right
                         }
                       >
-                        22%
+                        {((Emissionbyspinning / carbonFootprint) * 100).toFixed(
+                          2
+                        )}
+                        %
                       </div>
                     </div>
                     <div
@@ -502,7 +535,11 @@ export default function Home({ CompanyData }) {
                           styles.rightcontainer__middlecontainer__2__right__bottom__coldetails__1__right
                         }
                       >
-                        16%
+                        {(
+                          (Emissionbytransportation / carbonFootprint) *
+                          100
+                        ).toFixed(2)}
+                        %
                       </div>
                     </div>
                     <div
@@ -523,7 +560,10 @@ export default function Home({ CompanyData }) {
                           styles.rightcontainer__middlecontainer__2__right__bottom__coldetails__1__right
                         }
                       >
-                        27%
+                        {((Emissionbycarding / carbonFootprint) * 100).toFixed(
+                          2
+                        )}
+                        %
                       </div>
                     </div>
                     <div
@@ -544,7 +584,11 @@ export default function Home({ CompanyData }) {
                           styles.rightcontainer__middlecontainer__2__right__bottom__coldetails__1__right
                         }
                       >
-                        35%
+                        {(
+                          (Emissionbyheatingandcooling / carbonFootprint) *
+                          100
+                        ).toFixed(2)}
+                        %
                       </div>
                     </div>
                   </div>
