@@ -22,11 +22,11 @@ To install and set up the project locally, follow these steps:
 ## Usage
 
 Once the project is installed and set up, you can access the Greenstitch dashboard by navigating to http://localhost:3000.
-
+```bash
 - [Vercel Link 1](https://green-stitch-r6ku.vercel.app/)
 - [Vercel Link 2](https://green-stitch-r6ku-git-main-gpulkit09-gmailcom.vercel.app/)
 - [Vercel Link 3](https://green-stitch-r6ku-8u7g5jwf1-gpulkit09-gmailcom.vercel.app/)
-
+```
 
 ## API Reference
 
@@ -100,7 +100,7 @@ Database Structure:
   updatedAt: 2023-04-18T11:19:18.848Z,
   __v: 0
 }
-
+```
 You can add different data too and optimize further in code according to your need.
 
 ## Contributing
