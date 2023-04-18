@@ -1,8 +1,8 @@
 import Head from "next/head";
-import Image from "next/image";
 import { Inter } from "next/font/google";
 import styles from "@/styles/main.module.scss";
-import Chart from "chart.js";
+import mongoose from "mongoose";
+import companyData from "./../../models/companyData";
 const inter = Inter({ subsets: ["latin"] });
 
 //Implemented for the stackedBarGraph
@@ -17,7 +17,6 @@ import {
   ArcElement,
 } from "chart.js";
 import { Bar, Doughnut } from "react-chartjs-2";
-import { faker } from "@faker-js/faker";
 
 ChartJS.register(
   ArcElement,
@@ -29,109 +28,96 @@ ChartJS.register(
   Legend
 );
 
-const options = {
-  plugins: {
-    title: {
-      display: true,
-      // text: "Carbon Footprint",
-    },
-    legend: {
-      display: false,
-    },
-  },
-  responsive: true,
-  scales: {
-    x: {
-      stacked: true,
-      grid: {
+export default function Home({ CompanyData }) {
+  const months = Object.keys(CompanyData);
+  const typeEmission = Object.keys(CompanyData[months[0]]);
+  const options = {
+    plugins: {
+      title: {
+        display: true,
+      },
+      legend: {
         display: false,
       },
     },
-    y: {
-      stacked: true,
-      grid: {
+    responsive: true,
+    scales: {
+      x: {
+        stacked: true,
+        grid: {
+          display: false,
+        },
+      },
+      y: {
+        stacked: true,
+        grid: {
+          display: false,
+        },
+      },
+    },
+  };
+  const labels = months;
+  const data = {
+    labels: labels,
+    datasets: [
+      {
+        label: typeEmission[0],
+        data: labels.map((item) => {
+          return CompanyData[item][typeEmission[0]];
+        }),
+        backgroundColor: "#57cc78",
+        borderRadius: 10,
+      },
+      {
+        label: typeEmission[1],
+        data: labels.map((item) => {
+          return CompanyData[item][typeEmission[1]];
+        }),
+        backgroundColor: "#55dbdb",
+        borderRadius: 10,
+      },
+      {
+        label: typeEmission[2],
+        data: labels.map((item) => {
+          return CompanyData[item][typeEmission[2]];
+        }),
+        backgroundColor: "#e2ff32",
+        borderRadius: 10,
+      },
+      {
+        label: typeEmission[3],
+        data: labels.map((item) => {
+          return CompanyData[item][typeEmission[3]];
+        }),
+        backgroundColor: "#fec102",
+        borderRadius: 10,
+      },
+    ],
+  };
+
+  // Implemented for the Doughnut
+  const options2 = {
+    plugins: {
+      legend: {
         display: false,
       },
     },
-  },
-};
-const labels = [
-  "January",
-  "February",
-  "March",
-  "April",
-  "May",
-  "June",
-  "July",
-  "August",
-  "September",
-];
-const data = {
-  labels: labels,
-  datasets: [
-    {
-      label: "Data 1",
-      data: labels.map(function () {
-        return faker.datatype.number({ min: 0, max: 1000 });
-      }),
-      // data: [100, 200, 300, 400, 500, 600, 700],
-      backgroundColor: "#57cc78",
-      borderRadius: 10,
-    },
-    {
-      label: "Data 2",
-      data: labels.map(function () {
-        return faker.datatype.number({ min: 0, max: 1000 });
-      }),
-      // data: [100, 200, 300, 400, 500, 600, 700],
-      backgroundColor: "#55dbdb",
-      borderRadius: 10,
-    },
-    {
-      label: "Data 3",
-      data: labels.map(function () {
-        return faker.datatype.number({ min: 0, max: 1000 });
-      }),
-      // data: [100, 200, 300, 400, 500, 600, 700],
-      backgroundColor: "#e2ff32",
-      borderRadius: 10,
-    },
-    {
-      label: "Data 4",
-      data: labels.map(function () {
-        return faker.datatype.number({ min: 0, max: 1000 });
-      }),
-      // data: [100, 200, 300, 400, 500, 600, 700],
-      backgroundColor: "#fec102",
-      borderRadius: 10,
-    },
-  ],
-};
+    cutout: 80,
+  };
 
-// Implemented for the Doughnut
-const options2 = {
-  plugins: {
-    legend: {
-      display: false,
-    },
-  },
-  cutout: 80,
-};
+  const data2 = {
+    labels: ["Green", "Sky", "Yellow", "Orange"],
+    datasets: [
+      {
+        labels,
+        data: [22, 16, 27, 35],
+        backgroundColor: ["#57cc78", "#55dbdb", "#e2ff32", "#fec102"],
+        borderColor: ["#57cc78", "#55dbdb", "#e2ff32", "#fec102"],
+        borderWidth: 1,
+      },
+    ],
+  };
 
-const data2 = {
-  labels: ["Green", "Sky", "Yellow", "Orange"],
-  datasets: [
-    {
-      label: "# of Votes",
-      data: [22, 16, 27, 35],
-      backgroundColor: ["#57cc78", "#55dbdb", "#e2ff32", "#fec102"],
-      borderColor: ["#57cc78", "#55dbdb", "#e2ff32", "#fec102"],
-      borderWidth: 1,
-    },
-  ],
-};
-
-export default function Home() {
   return (
     <>
       <Head>
@@ -570,4 +556,15 @@ export default function Home() {
       </main>
     </>
   );
+}
+
+export async function getServerSideProps(context) {
+  if (!mongoose.connections[0].readyState) {
+    await mongoose.connect(process.env.MONGO_URI);
+  }
+  let CompanyData = await companyData.findOne({ name: "Ram Shyam Company" });
+  const DataMonthly = CompanyData.year["2016"];
+  return {
+    props: { CompanyData: JSON.parse(JSON.stringify(DataMonthly)) },
+  };
 }
